@@ -9,25 +9,32 @@ let menuItems = [
   'Log Out'
 ];
 
-/* 
-  Step 1: Write a component called 'menuMaker' to create a menu like the markup below:
 
-  <div class="menu">
-    <ul>
-      {each menu item as an <li>}
-    </ul>
-  </div>
+const menuMaker = (arr) => {
+//create the elements needed so we can do things to them (They will like it I swear!)
+  const menuDiv = document.createElement('div');
+  const menuList = document.createElement('ul');
+  //Loop to create the links
+  arr.forEach(link => {
+    const listItem = document.createElement('li'); //make the the list item
+    listItem.textContent = link; // give the link a name
+    menuList.appendChild(listItem);  //add the item to the list
+  
+  });
 
-  The 'menuMaker' takes an array of menu items as its only argument.
+  //Don't forget to be classy
+  menuDiv.classList.add('menu');
+  
+//Add the list to its parent
+  menuDiv.appendChild(menuList);
+  
+  //event listener to open and close the menu
+  document.querySelector('img').addEventListener('click', () => {
+    menuDiv.classList.toggle('menu--open');
+  })
+   
+  return menuDiv;
+}
+document.querySelector('.header').appendChild(menuMaker(menuItems));
 
-  Step 2: Inside the function, iterate over the array creating a list item <li> element for each item in the array.
-  Add those items to the <ul>
 
-  Step 3: Still inside your function, select from the DOM the menu button (the element with a class of 'menu-button').
-
-  Step 4: Add a click event listener to the menu button. When clicked it should toggle the class 'menu--open' on div.menu (your div with a 'menu' class).
-
-  Step 5: Don't forget to return your div.menu.
-
-  Step 6: Use 'menuMaker' to create a menu using the 'menuItems' array, and append the returned menu to the header.
-*/

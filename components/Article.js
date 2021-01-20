@@ -86,31 +86,61 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'New dimension filled with catnip found!',
+    date: 'Jan 19st, 2021',
+    firstParagraph: `Cats go for world domination stare at ceiling light brown cats with pink ears but check cat door for ambush 10 times before coming in yet funny little cat chirrup noise shaking upright tail when standing next to you. Mice give attitude that box? i can fit in that box, kitty run to human with blood on mouth from frenzied attack on poor innocent mouse, don't i look cute?, but twitch tail in permanent irritation so oooo! dangly balls! jump swat swing flies so sweetly to the floor crash move on wash belly nap purr purr purr until owner pets why owner not pet me hiss scratch meow. Mew lick the curtain just to be annoying, so demand to be let outside at once, and expect owner to wait for me as i think about it for meow all night having their mate disturbing sleeping humans poop on the floor, break a planter, sprint, eat own hair, vomit hair, hiss, chirp at birds, eat a squirrel, hide from fireworks, lick toe beans, attack christmas tree yet love to play with owner's hair tie. Prow?? ew dog you drink from the toilet, yum yum warm milk hotter pls, ouch too hot hey! you there, with the hands. Howl uncontrollably for no reason when in doubt, wash yet drink water out of the faucet or eats owners hair then claws head yet fart in owners food .  `,
+
+    secondParagraph: `Catching very fast laser pointer massacre a bird in the living room and then look like the cutest and most innocent animal on the planet tickle my belly at your own peril i will pester for food when you're in the kitchen even if it's salad i'm going to lap some water out of my master's cup meow. Catch eat throw up catch eat throw up bad birds peer out window, chatter at birds, lure them to mouth stare out the window but shed everywhere shed everywhere stretching attack your ankles chase the red dot, hairball run catnip eat the grass sniff knock dish off table head butt cant eat out of my own dish.  `,
+
+    thirdParagraph: `Loved it, hated it, loved it, hated it ccccccccccccaaaaaaaaaaaaaaatttttttttttttttttssssssssssssssss yet if human is on laptop sit on the keyboard stares at human while pushing stuff off a table hiss at vacuum cleaner jump around on couch, meow constantly until given food, . Meow meow mama i like to spend my days sleeping and eating fishes that my human fished for me we live on a luxurious yacht, sailing proudly under the sun, i like to walk on the deck, watching the horizon, dreaming of a good bowl of milk, yet am in trouble, roll over, too cute for human to get mad and pretend you want to go out but then don't, for sleep everywhere, but not in my bed yet pretend not to be evil. Pounce on unsuspecting person bite the neighbor's bratty kid for cat gets stuck in tree firefighters try to get cat down firefighters get stuck in tree cat eats firefighters' slippers lies down . Hide at bottom of staircase to trip human cat mojo cat playing a fiddle in hey diddle diddle?`
   }
 ];
 
-/*
-  Step 1: Write a component called 'articleMaker' to create an article.
-  Your component is a function that takes an article object as its only argument,
-  and returns a DOM node looking like the one below:
+function articleMaker(obj){
+//create the elements needed so we can do things to them (They will like it I swear!)
+    const articleDiv = document.createElement('div');  //Div contaner forall thearticle elements to live in, should gain class of article
+    const articleTitle = document.createElement('h2'); // H2 will hold title text
+    const articleDate = document.createElement('p');  //p element to hold the date of the article, should gain class date
+    const articlePara1 = document.createElement('p');  //p element to hold the first parashraph
+    const articlePara2 = document.createElement('p');  //p element to hold the second parashraph
+    const articlePara3 = document.createElement('p');  //p element to hold the third parashraph
+    const expandButton = document.createElement('span'); //span to act as a button, will need a click event to open / close, need class expandButton
 
-  <div class="article">
-    <h2>{title of the article}</h2>
-    <p class="date">{date of the article}</p>
+//add content 
+  articleTitle.innerText = obj.title; // H2 will hold title text
+  articleDate.innerText = obj.date;  //p element to hold the date of the article, should gain class date
+ articlePara1.innerText = obj.firstParagraph;  //p element to hold the first parashraph
+ articlePara2.innerText = obj.secondParagraph;  //p element to hold the second parashraph
+ articlePara3.innerText = obj.thirdParagraph;  //p element to hold the third parashraph
+ expandButton.innerText = "-  +  -"; //span to act as a button, will need a click event to open / close
 
-    {three separate paragraph elements}
+ //make the elements pretty with styles
+articleDiv.classList.add('article'); //Div contaner forall thearticle elements to live in, should gain class of article
+articleDate.classList.add('date'); //p element to hold the date of the article, should gain class date
+expandButton.classList.add('expandButton'); // span to act as a button, will need a click event to open / close, need class expandButton
 
-    <span class="expandButton">+</span>
-  </div>
+//add the elements to a parent
+articleDiv.appendChild(articleTitle);     //adds title to the parent div
+articleDiv.appendChild(articleDate);    //adds date to the parent div
+articleDiv.appendChild(articlePara1);     //adds 1st p to the parent div
+articleDiv.appendChild(articlePara2);   //adds 2ndst p to the parent div
+articleDiv.appendChild(articlePara3);   //adds 3rd p to the parent div
+articleDiv.appendChild(expandButton); //adds button span to the parent div
 
-  Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
-  This listener should toggle the class 'article-open' on div.article.
+//   This listener should toggle the class 'article-open' on div.article.
+expandButton.addEventListener('click', (event) => {
+articleDiv.classList.toggle('article-open'); //target here is the main div NOT event.target
+});
+//returning parent div (this sill needs to be added to the DOM)
+return(articleDiv);
+};
 
-  Step 3: Don't forget to return something from your function!
+ data.forEach(obj => {
+ document.querySelector('.articles').appendChild(articleMaker(obj));
+ });
 
-  Step 4: Outside your function now, loop over the data. At each iteration you'll use your component
-  to create a div.article element and append it to the DOM inside div.articles (see index.html).
 
-  Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
-  Refresh the page to see the new article.
-*/
+
+
